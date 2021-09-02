@@ -1,16 +1,26 @@
 <template>
   <div class="container">
-    <div class="control-panel">{{ winner }}</div>
-    <div class="control-panel">{{ grid }}</div>
+    <div class="control-panel">
+      <div v-if="winner">{{ winner }}</div>
+    </div>
     <div class="game-panel">
-      <div v-for="(row, i) in grid" :key="i" class="row">
-        <div
-          v-for="(col, j) in row"
-          :key="j"
-          :class="getClass(i, j)"
-          @click="setToken(i, j)"
-          @dblclick="setToken(i, j, -1)"
-        ></div>
+      <div class="tic-tac-toe">
+        <div class="separator vertical left"></div>
+        <div class="separator vertical right"></div>
+        <div class="separator horizontal top"></div>
+        <div class="separator horizontal bottom"></div>
+        <div v-for="(row, i) in grid" :key="i">
+          <div
+            v-for="(col, j) in row"
+            :key="j"
+            class="path"
+            @click="setToken(i, j)"
+            @dblclick="setToken(i, j, -1)"
+          >
+            <img v-if="grid[i][j] === 1" alt="o" src="./../assets/o.png" />
+            <img v-if="grid[i][j] === -1" alt="x" src="./../assets/x.png" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -26,17 +36,8 @@ export default {
       [null, null, null],
       [null, null, null],
     ]);
-    const getClass = (row, col, solvedClass = "path ") => {
-      if (row === 0 || row === 1) solvedClass += "bl ";
-      if (row === 1 || row === 2) solvedClass += "tl ";
-      if (col === 0 || col === 1) solvedClass += "rl ";
-      if (col === 1 || col === 2) solvedClass += "ll ";
-      if (grid.value[row][col] === 1) solvedClass += "usr";
-      else if (grid.value[row][col] === -1) solvedClass += "cpu";
-
-      return solvedClass;
-    };
     const setToken = (row, col, value = 1) => {
+      grid.value[row][col] = value;
       if (grid.value[row][col] === null) {
         grid.value[row][col] = value;
       }
@@ -58,7 +59,6 @@ export default {
     });
     return {
       grid,
-      getClass,
       setToken,
       winner,
     };
@@ -66,51 +66,64 @@ export default {
 };
 </script>
 <style scoped>
+.container {
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+}
 .control-panel {
-  width: 90%;
+  width: 40%;
+  display: inline-block;
   margin: auto;
   background-color: cadetblue;
 }
 .game-panel {
+  width: 40%;
+  display: inline-block;
   margin: auto;
-  width: 90%;
-  background-color: green;
+}
+.tic-tac-toe {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: auto;
+}
+.separator {
+  background-color: rgb(209 20 20);
+  position: absolute;
+  border-radius: 0px 5px 0px 5px;
+}
+.vertical {
+  width: 1%;
+  height: 100%;
+}
+.horizontal {
+  height: 1%;
+  width: 100%;
+}
+.left {
+  margin-left: 33%;
+}
+.right {
+  margin-left: 66%;
+}
+.top {
+  margin-top: 33%;
+}
+.bottom {
+  margin-top: 66%;
 }
 .path {
-  background-color: grey;
   width: 33%;
-  height: 100%;
+  height: 98px;
   display: inline-block;
 }
 .path:hover {
-  background-color: tomato;
   cursor: pointer;
 }
-.row {
-  width: 100%;
-  height: 70px;
-}
-.container {
-  margin: auto;
-  width: 40%;
-  padding: 10px;
-}
-.bl {
-  border-bottom: 1px solid black;
-}
-.tl {
-  border-top: 1px solid black;
-}
-.rl {
-  border-right: 1px solid black;
-}
-.ll {
-  border-left: 1px solid black;
-}
-.usr {
-  background-color: red;
-}
-.cpu {
-  background-color: blue;
+img {
+  top: 0;
+  width: 90%;
+  height: inherit;
 }
 </style>

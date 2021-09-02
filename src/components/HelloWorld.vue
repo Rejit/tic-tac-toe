@@ -1,11 +1,7 @@
 <template>
   <div>
-    <h1>{{ msg }}</h1>
-    <button @click="count++">count is: {{ count }}</button>
-    <p>
-      Edit <code>components/HelloWorld.vue</code> to test hot module
-      replacement.
-    </p>
+    <h1>{{ gameTitle }}</h1>
+    <h2>{{ madeWith }}</h2>
   </div>
 </template>
 
@@ -13,12 +9,8 @@
 export default {
   name: "HelloWorld",
   props: {
-    msg: String,
-  },
-  data() {
-    return {
-      count: 0,
-    };
+    gameTitle: String,
+    madeWith: String,
   },
 };
 </script>

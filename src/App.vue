@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div>
+    <div class="container1">
       <img alt="Vue logo" src="./assets/logo.png" />
-      <HelloWorld msg="Hello Vue 3.0 + Vite" />
+      <HelloWorld :gameTitle="gameTitle" :madeWith="madeWith" />
     </div>
-    <div>
+    <div class="container2">
       <PlayGround />
     </div>
   </div>
@@ -16,9 +16,27 @@ import PlayGround from "./components/PlayGround.vue";
 
 export default {
   name: "App",
+  data() {
+    return {
+      gameTitle: "Tic-Tac-Toe",
+      madeWith: "Hello Vue 3.0 + Vite",
+    };
+  },
   components: {
     HelloWorld,
     PlayGround,
   },
 };
 </script>
+<style scoped>
+.container1 {
+  margin: auto;
+  width: 30%;
+  display: inline-block;
+}
+.container2 {
+  margin: auto;
+  width: 70%;
+  display: inline-block;
+}
+</style>
